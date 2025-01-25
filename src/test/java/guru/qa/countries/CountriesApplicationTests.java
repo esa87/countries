@@ -35,11 +35,15 @@ class CountriesApplicationTests {
 
     @Test
     void allCountryEndpoint() throws Exception {
+        CountryEntity ce = new CountryEntity();
+        ce.setCountryName("Testovo");
+        ce.setCountryCode("TV");
+        countryRepository.save(ce);
         mockMvc.perform(get("/api/countries/all")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
-                .andExpect(result -> result.getResponse().getContentAsString().contains("erer"));
+                .andExpect(jsonPath("$[0].name").value("Testovo"));
     }
 
     @Test

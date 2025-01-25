@@ -14,6 +14,7 @@ alter table "country"
 delete
 from "country";
 
+
 insert into "country" (country_name, country_code) values
 ('Fiji', 'FJ'),
 ('Tanzania', 'TZ'),
