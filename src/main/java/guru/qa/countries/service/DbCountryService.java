@@ -46,42 +46,42 @@ public class DbCountryService implements CountryService {
     @Override
     public Country getCountryByName(String countryName) {
         CountryEntity ce = countryRepository.findByCountryName(countryName).get();
-        return  new Country(ce.getCountryName(), ce.getCountryCode());
+        return new Country(ce.getCountryName(), ce.getCountryCode());
     }
 
     @Override
     public CountryGraphql graphqlCountryByName(String countryName) {
         CountryEntity ce = countryRepository.findByCountryName(countryName).get();
-        return  new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
+        return new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
     }
 
     @Override
     public Country createCountry(Country country) {
-        if (countryRepository.findByCountryName(country.name()).isEmpty()){
+        if (countryRepository.findByCountryName(country.name()).isEmpty()) {
             CountryEntity countryEntity = new CountryEntity();
             countryEntity.setCountryName(country.name());
             countryEntity.setCountryCode(country.code());
             countryRepository.save(countryEntity);
         }
         CountryEntity ce = countryRepository.findByCountryName(country.name()).get();
-        return  new Country(ce.getCountryName(), ce.getCountryCode());
+        return new Country(ce.getCountryName(), ce.getCountryCode());
     }
 
     @Override
     public CountryGraphql createCountryGraphql(CountryInputGraphql country) {
-        if (countryRepository.findByCountryName(country.name()).isEmpty()){
+        if (countryRepository.findByCountryName(country.name()).isEmpty()) {
             CountryEntity countryEntity = new CountryEntity();
             countryEntity.setCountryName(country.name());
             countryEntity.setCountryCode(country.code());
             countryRepository.save(countryEntity);
         }
         CountryEntity ce = countryRepository.findByCountryName(country.name()).get();
-        return  new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
+        return new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
     }
 
     @Override
     public Country updateCountry(UUID id, Country country) {
-        if(!countryRepository.findById(id).isEmpty()){
+        if (!countryRepository.findById(id).isEmpty()) {
             CountryEntity countryEntity = new CountryEntity();
             countryEntity.setId(id);
             countryEntity.setCountryName(country.name());
@@ -89,12 +89,12 @@ public class DbCountryService implements CountryService {
             countryRepository.save(countryEntity);
         }
         CountryEntity ce = countryRepository.findByCountryName(country.name()).get();
-        return  new Country(ce.getCountryName(), ce.getCountryCode());
+        return new Country(ce.getCountryName(), ce.getCountryCode());
     }
 
     @Override
     public CountryGraphql updateCountryGraphql(UUID id, CountryInputGraphql country) {
-        if(!countryRepository.findById(id).isEmpty()){
+        if (!countryRepository.findById(id).isEmpty()) {
             CountryEntity countryEntity = new CountryEntity();
             countryEntity.setId(id);
             countryEntity.setCountryName(country.name());
@@ -102,6 +102,6 @@ public class DbCountryService implements CountryService {
             countryRepository.save(countryEntity);
         }
         CountryEntity ce = countryRepository.findByCountryName(country.name()).get();
-        return  new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
+        return new CountryGraphql(ce.getId(), ce.getCountryName(), ce.getCountryCode());
     }
 }
