@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package guru.qa.grpc.countries;
+
+option java_multiple_files = true;
+option java_package = "guru.qa.grpc.countries";
+option java_outer_classname = "CountriesProto";
+
+service CountriesService {
+    rpc Country(NameRequest) returns (CountryResponse) {}
+    rpc AddCountry(CountryRequest) returns (CountryResponse) {}
+    rpc AddCountries(stream CountryRequest) returns (CountResponse) {}
+    rpc RandomCountry(CountRequest) returns (stream CountryResponse) {}
+    rpc UpdateCountry(UpdateRequest) returns (CountryResponse) {}
+    rpc AllCountries (EmptyRequest) returns (AllCountriesResponse) {}
+}
+
+message IdRequest {
+    string id = 1;
+}
+
+message EmptyRequest {
+}
+
+message NameRequest {
+    string name = 1;
+}
+
+message CountRequest {
+    uint32 count = 1;
+}
+
+message CountResponse {
+    uint32 count = 1;
+}
+
+message CountryRequest {
+    string name = 1;
+    string code = 2;
+}
+
+message CountryResponse {
+    string id = 1;
+    string name = 2;
+    string code = 3;
+}
+
+message UpdateRequest {
+    string id = 1;
+    CountryRequest country = 2;
+}
+
+message AllCountriesResponse {
+    repeated CountryResponse allCountries = 1;
+}
