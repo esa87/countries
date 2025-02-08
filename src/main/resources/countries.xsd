@@ -10,7 +10,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="countryRequest">
+    <xs:element name="countriesRequest">
         <xs:complexType>
             <xs:sequence>
             </xs:sequence>
@@ -20,8 +20,16 @@
     <xs:element name="countryInputRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
-                <xs:element name="code" type="xs:string"/>
+                <xs:element name="country" type="tns:countryInput"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="countryUpdateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"/>
+                <xs:element name="country" type="tns:countryInput"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -42,13 +50,18 @@
             <xs:sequence>
                 <xs:element name="countries" type="tns:country" minOccurs="0" maxOccurs="unbounded">
                 </xs:element>
-                <xs:element name="totalElements" type="xs:long" minOccurs="0"/>
-                <xs:element name="totalPages" type="xs:int" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <!-- CUSTOM TYPES -->
+
+    <xs:complexType name="countryInput">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="code" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="country">
         <xs:sequence>
