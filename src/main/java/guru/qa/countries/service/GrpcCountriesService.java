@@ -44,7 +44,7 @@ public class GrpcCountriesService extends CountriesServiceGrpc.CountriesServiceI
 
     @Override
     public void country(NameRequest request, StreamObserver<CountryResponse> responseObserver) {
-        Country country = countryService.getCountryByName(request.getName());
+        CountryGraphql country = countryService.graphqlCountryByName(request.getName());
         responseObserver.onNext(
                 CountryResponse.newBuilder()
                         .setName(country.name())

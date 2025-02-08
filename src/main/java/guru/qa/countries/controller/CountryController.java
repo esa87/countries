@@ -1,6 +1,8 @@
 package guru.qa.countries.controller;
 
 import guru.qa.countries.domain.Country;
+import guru.qa.countries.domain.graphql.CountryGraphql;
+import guru.qa.countries.domain.graphql.CountryInputGraphql;
 import guru.qa.countries.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +23,45 @@ public class CountryController {
 
     @GetMapping("/all")
     public List<Country> all() {
-        return countryService.allCountries();
+        List<CountryGraphql> countryGraphqls = countryService.allCountriesGraphql();
+        List <Country> countries = countryGraphqls.stream()
+                .map(countryGraphql -> new  Country(
+                        countryGraphql.name(),
+                        countryGraphql.code()
+        )).toList();
+        return countries;
     }
 
     @GetMapping("/current")
     public Country currentCountry(@RequestParam String countryName) {
-        return countryService.getCountryByName(countryName);
+        CountryGraphql countryGraphql = countryService.graphqlCountryByName(countryName);
+        return new Country(
+                countryGraphql.name(),
+                countryGraphql.code()
+        );
     }
 
     @PostMapping("/create")
     public Country createCountry(@RequestBody Country country) {
-        return countryService.createCountry(country);
+        CountryGraphql countryGraphql= countryService.createCountryGraphql(new CountryInputGraphql(
+                country.name(),
+                country.code()
+        ));
+        return new Country(
+                countryGraphql.name(),
+                countryGraphql.code()
+        );
     }
 
     @PatchMapping("/update/{id}")
     public Country updateCountry(@PathVariable("id") UUID id, @RequestBody Country country) {
-        return countryService.updateCountry(id, country);
+        CountryGraphql countryGraphql= countryService.updateCountryGraphql(id, new CountryInputGraphql(
+                country.name(),
+                country.code()
+        ));
+        return new Country(
+                countryGraphql.name(),
+                countryGraphql.code()
+        );
     }
 }
